@@ -1,0 +1,24 @@
+import csv
+
+
+def read_rows():
+    rows = []
+    with open('history.csv', 'r', newline='') as csvfile:
+        myreader = csv.reader(csvfile, delimiter=',')
+        i = 1
+        for row in myreader:
+            rows.insert(i, row)
+            i += 1
+    return rows
+
+
+def write_rows(time, temp, max_rows=10):
+    rows = read_rows()
+    rows.insert(0, [time, temp])  # insert most recent reading
+    if len(rows) > max_rows:
+        rows.pop(-1)  # remove oldest reading
+    with open('history.csv', 'w', newline='') as csvfile:
+        mywriter = csv.writer(csvfile, delimiter=',')
+        for row in rows:
+            # print(row)
+            mywriter.writerow(row)
