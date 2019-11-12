@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# source: http://kookye.com/2017/06/01/desgin-a-temperature-detector-through-raspberry-pi-and-ds18b20-temperature-sensor/
+# modified from: http://kookye.com/2017/06/01/desgin-a-temperature-detector-through-raspberry-pi-and-ds18b20-temperature-sensor/
 
 from os import system
 from log_csv import write_rows
@@ -32,11 +32,12 @@ def send_email(temp):
 
 def log_temperature(temp):
     global last_warn
-    time_str = time.strftime("%r")
-    write_rows(time_str, temp, 1000)
-    if (last_warn + cooldown) < time.time():
+    time_now = int(time.time())  # unix timestamp
+    time_str = time.strftime("%r")  # human readable time
+    write_rows(time_now, time_str, temp, 1000)
+    if (last_warn + cooldown) < time_now:
         send_email(temp)
-        last_warn = time.time()
+        last_warn = time_now
 
 
 def read_temp_raw():
