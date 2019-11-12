@@ -24,9 +24,9 @@ refresh_time = 2
 
 def send_email(temp):
     current_date = time.strftime('%c')
-    msg_body = f"\'{temp} is above {max_temp}\n{current_date}\'"
-    msg_subject = "Alerta de temperatura"
-    msg_recipient = "avalonvales@protonmail.com"
+    body = f"\'{temp} is above {max_temp}\n{current_date}\'"
+    subject = "Alerta de temperatura"
+    recipient = "avalonvales@protonmail.com"
     # system(f"echo {body} | s-nail -s '{subject}' '{recipient}'")
 
 
@@ -41,10 +41,9 @@ def log_temperature(temp):
 
 
 def read_temp_raw():
-    f = open(device_file, 'r')
-    lines = f.readlines()
-    f.close()
-    return lines
+    with open(device_file, 'r') as f
+        lines = f.readlines()
+        return lines
 
 
 def read_temp():
