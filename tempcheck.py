@@ -12,9 +12,13 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 system('modprobe w1-gpio')
 system('modprobe w1-therm')
 
-base_dir = '/sys/bus/w1/devices/'
-device_folder = glob.glob(base_dir + '28*')[0]  # wildcard match
-device_file = device_folder + '/w1_slave'
+try:
+    base_dir = '/sys/bus/w1/devices/'
+    device_folder = glob.glob(base_dir + '28*')[0]  # wildcard match
+    device_file = device_folder + '/w1_slave'
+except (IndexError):
+    print("Couldn't locate device to read from")
+    exit(1)
 
 max_temp = 10
 last_warn = 0
