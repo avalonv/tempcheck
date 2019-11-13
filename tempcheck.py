@@ -45,7 +45,7 @@ def log_temperature(temp):
 
 
 def read_temp_raw():
-    with open(device_file, 'r') as f
+    with open(device_file, 'r') as f:
         lines = f.readlines()
         return lines
 
