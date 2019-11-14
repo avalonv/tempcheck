@@ -1,29 +1,18 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
 from datetime import datetime as dt
-import csv
-
-timestamps = []  # x
-temps = [] # y
-
-
-def read_history():
-    global timestamps, temps
-    with open('history.csv', 'r') as csvfile:
-        rows = csv.reader(csvfile, delimiter=',')
-        next(rows, None)  # skip header
-        for row in rows:
-            try:
-                timestamps.append(int(row[0]))
-                temps.append(float(row[2]))
-            except (IndexError):
-                break
-
+from log_csv import read_rows
 
 def draw_plot():
-    read_history()
+    rows = read_rows()
+    timestamps = []
+    dates = [] # x
+    temps = [] # y
 
-    dates = []
+    for row in rows:
+        timestamps.append(int(row[0]))
+        temps.append(float(row[2]))
+
     for ts in timestamps:
         dates.append(dt.fromtimestamp(ts))
 
@@ -39,7 +28,7 @@ def draw_plot():
     # set labels
     plt.xlabel('Horário')
     plt.ylabel('Temperatura °C')
-    # plt.title('temperatura')
+    # plt.title('temperatura nas últimas três horas')
 
     plt.plot(dates,temps)  # create plot
 
