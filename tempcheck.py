@@ -7,6 +7,11 @@ import glob
 import time
 import locale
 
+max_temp = 10
+last_warn = 0
+cooldown = 6000
+refresh_time = 2
+
 # to configure pt_BR locale run 'sudo dpkg-reconfigure locales'
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 system('modprobe w1-gpio')
@@ -19,11 +24,6 @@ try:
 except (IndexError):
     print("Couldn't locate device to read from")
     exit(1)
-
-max_temp = 10
-last_warn = 0
-cooldown = 6000
-refresh_time = 2
 
 
 def send_email(temp):
@@ -38,7 +38,7 @@ def log_temperature(temp):
     global last_warn
     time_now = int(time.time())  # unix timestamp
     time_str = time.strftime("%r").strip(' ')  # human readable time
-    write_rows(time_now, time_str, temp, 40)
+    write_rows(time_now, time_str, temp, 1000)
     if (last_warn + cooldown) < time_now:
         send_email(temp)
         last_warn = time_now
