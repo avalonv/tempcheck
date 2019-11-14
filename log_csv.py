@@ -5,6 +5,7 @@ def read_rows():
     rows = []
     with open('history.csv', 'r', newline='') as csvfile:
         myreader = csv.reader(csvfile, delimiter=',')
+        next(myreader, None)  # skip header
         for row in myreader:
             rows.append(row)
     return rows
