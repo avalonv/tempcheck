@@ -31,14 +31,15 @@ def send_email(temp):
     body = f"\'{temp} is above {max_temp}\n{current_date}\'"
     subject = "Alerta de temperatura"
     recipient = "avalonvales@protonmail.com"
+    print(body)
     # system(f"echo {body} | s-nail -s '{subject}' '{recipient}'")
 
 
 def log_temperature(temp):
     global last_warn
     time_now = int(time.time())  # unix timestamp
-    time_str = time.strftime("%r").strip(' ')  # human readable time
-    write_rows(time_now, time_str, temp, 1000)
+    date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')  # human readable date
+    write_rows(time_now, date_str, temp, 1000)
     if (last_warn + cooldown) < time_now:
         send_email(temp)
         last_warn = time_now

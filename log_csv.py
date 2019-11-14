@@ -11,14 +11,15 @@ def read_rows():
     return rows
 
 
-def write_rows(timestamp, time_str, temp, max_rows=10):
+def write_rows(timestamp, date, temp, max_rows=10):
+    header = ["timestamp", "date", "temp"]
     rows = read_rows()
-    rows.append([timestamp, time_str, temp])  # insert most recent reading
+    rows.append([timestamp, date, temp])  # append most recent reading
     if len(rows) > max_rows:
         rows.pop(0)  # remove oldest reading
     with open('history.csv', 'w', newline='') as csvfile:
         mywriter = csv.writer(csvfile, delimiter=',')
-        mywriter.writerow(["timestamp", "time_str", "temp"])  # write header
+        mywriter.writerow(header)
         for row in rows:
             # print(row)
             mywriter.writerow(row)
