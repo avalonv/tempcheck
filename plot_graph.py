@@ -4,7 +4,7 @@ from datetime import datetime as dt
 from log_csv import read_rows
 
 
-def draw_plot(show_fig=False):
+def draw_line_graph(show_fig=False):
     rows = read_rows()
     timestamps = []
     dates = [] # x
@@ -39,4 +39,4 @@ def draw_plot(show_fig=False):
 
 
 if __name__ == "__main__":
-    draw_plot(True)
+    draw_line_graph(True)
