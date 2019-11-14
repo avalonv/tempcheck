@@ -40,9 +40,10 @@ def log_temperature(temp):
     time_now = int(time.time())  # unix timestamp
     date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')  # human readable date
     write_rows(time_now, date_str, temp, 1000)
-    if (last_warn + cooldown) < time_now:
-        send_email(temp)
-        last_warn = time_now
+    if current_temp > max_temp:
+        if (last_warn + cooldown) < time_now:
+            send_email(temp)
+            last_warn = time_now
 
 
 def read_temp_raw():
@@ -67,6 +68,5 @@ def read_temp():
 while True:
     current_temp = read_temp()
     # print('C = %3.3f' % current_temp)
-    if current_temp > max_temp:
-        log_temperature(current_temp)
+    log_temperature(current_temp)
     time.sleep(refresh_time)
