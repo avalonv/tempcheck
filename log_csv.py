@@ -18,7 +18,7 @@ def write_rows(timestamp, time_str, temp, max_rows=10):
         rows.pop(0)  # remove oldest reading
     with open('history.csv', 'w', newline='') as csvfile:
         mywriter = csv.writer(csvfile, delimiter=',')
-        mywriter.writerow(["temestamp", "time_str", "temp"])  # write header
+        mywriter.writerow(["timestamp", "time_str", "temp"])  # write header
         for row in rows:
             # print(row)
             mywriter.writerow(row)
