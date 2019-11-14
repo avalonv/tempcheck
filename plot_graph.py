@@ -3,7 +3,8 @@ import matplotlib.dates as md
 from datetime import datetime as dt
 from log_csv import read_rows
 
-def draw_plot():
+
+def draw_plot(show_fig=False):
     rows = read_rows()
     timestamps = []
     dates = [] # x
@@ -17,7 +18,7 @@ def draw_plot():
         dates.append(dt.fromtimestamp(ts))
 
     ax = plt.gca()  # get current axes instance
-    xfmt = md.DateFormatter('%H:%M:%S')  # x (timestamps) formatting
+    xfmt = md.DateFormatter('%H:%M:%S')  # x (timestamp) formatting
     ax.xaxis.set_major_formatter(xfmt)
     ax.grid() # add a grid
 
@@ -30,10 +31,12 @@ def draw_plot():
     plt.ylabel('Temperatura °C')
     # plt.title('temperatura nas últimas três horas')
 
-    plt.plot(dates,temps)  # create plot
-
+    plt.plot(dates,temps)  # create fig
     plt.savefig("test.png")
-    plt.show()
+
+    if show_fig is True:
+        plt.show()
+
 
 if __name__ == "__main__":
-    draw_plot()
+    draw_plot(True)
