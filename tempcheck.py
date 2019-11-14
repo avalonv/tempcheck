@@ -37,8 +37,8 @@ def send_email(temp):
 def log_temperature(temp):
     global last_warn
     time_now = int(time.time())  # unix timestamp
-    time_str = time.strftime("%r")  # human readable time
-    write_rows(time_now, time_str, temp, 1000)
+    time_str = time.strftime("%r").strip(' ')  # human readable time
+    write_rows(time_now, time_str, temp, 40)
     if (last_warn + cooldown) < time_now:
         send_email(temp)
         last_warn = time_now
