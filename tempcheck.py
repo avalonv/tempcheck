@@ -7,17 +7,22 @@ import glob
 import time
 import locale
 
-max_temp = 10
+max_temp = 40
 last_warn = 0
 cooldown = 6000
 refresh_time = 2
-
-# to configure pt_BR locale run 'sudo dpkg-reconfigure locales'
-locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
-system('modprobe w1-gpio')
-system('modprobe w1-therm')
+locale_str = 'pt_BR.utf8'
 
 try:
+    locale.setlocale(locale.LC_ALL, locale_str)
+except (locale.Error):
+    print('unsupported locale')
+    print(f"run 'sudo dpkg-reconfigure locales' to configure {locale_str} locale")
+    exit(1)
+
+try:
+    system('modprobe w1-gpio')
+    system('modprobe w1-therm')
     base_dir = '/sys/bus/w1/devices/'
     device_folder = glob.glob(base_dir + '28*')[0]  # wildcard match
     device_file = device_folder + '/w1_slave'
