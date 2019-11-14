@@ -35,4 +35,5 @@ def draw_plot():
     plt.savefig("test.png")
     plt.show()
 
-draw_plot()
+if __name__ == "__main__":
+    draw_plot()
