@@ -17,26 +17,30 @@ def draw_line_graph(show_fig=False):
     for ts in timestamps:
         dates.append(dt.fromtimestamp(ts))
 
-    ax = plt.gca()  # get current axes instance
-    xfmt = md.DateFormatter('%H:%M:%S')  # x (timestamp) formatting
-    ax.xaxis.set_major_formatter(xfmt)
-    ax.grid() # add a grid
+    fig, ax = plt.subplots(1,1)
+    ax.plot(dates,temps)
 
-    # set how the plot values are displayed
-    plt.subplots_adjust(bottom=0.2)
-    plt.xticks(rotation=25)
+    # x (date) formatting
+    xfmt = md.DateFormatter('%H:%M:%S')
+    ax.xaxis.set_major_formatter(xfmt)
+
+    # add a grid
+    ax.grid()
 
     # set labels
     plt.xlabel('Horário')
     plt.ylabel('Temperatura °C')
     # plt.title('temperatura nas últimas três horas')
 
-    plt.plot(dates,temps)  # create fig
+    # set how the plot labels are displayed
+    plt.subplots_adjust(bottom=0.2)
+    plt.xticks(rotation=50)
+
     plt.savefig("test.png")
 
     if show_fig is True:
         plt.show()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # if calling directly show graph
     draw_line_graph(True)
