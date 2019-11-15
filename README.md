@@ -1,4 +1,5 @@
 # tempcheck
 
 ### Dependencies
-matplotlib, scipy
+graph: matplotlib, scipy
+email: s-nail, postfix
