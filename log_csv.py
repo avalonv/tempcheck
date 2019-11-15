@@ -1,9 +1,17 @@
 import csv
 
+hist_file = 'history.csv'
 
 def read_rows():
     rows = []
-    with open('history.csv', 'r', newline='') as csvfile:
+    # try opening in read mode. if it fails, create the file
+    try:
+        with open(hist_file, 'r'):
+            pass
+    except (FileNotFoundError):
+        with open(hist_file, 'w+'):
+            pass
+    with open(hist_file, 'r', newline='') as csvfile:
         myreader = csv.reader(csvfile, delimiter=',')
         next(myreader, None)  # skip header
         for row in myreader:
