@@ -10,7 +10,7 @@ import locale
 max_temp = 40
 last_warn = 0
 cooldown = 6000
-refresh_time = 2
+refresh_time = 3
 locale_str = 'pt_BR.utf8'
 
 try:
@@ -44,7 +44,7 @@ def log_temperature(temp):
     global last_warn
     time_now = int(time.time())  # unix timestamp
     date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')  # human readable date
-    write_rows(time_now, date_str, temp, 1000)
+    write_rows(time_now, date_str, temp, 3600) # log last 3 hours
     if current_temp > max_temp:
         if (last_warn + cooldown) < time_now:
             send_email(temp)
