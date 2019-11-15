@@ -36,6 +36,10 @@ def draw_line_graph(show_fig=False):
     plt.subplots_adjust(bottom=0.2)
     plt.xticks(rotation=50)
 
+    # increase frequency of x ticks (dates)
+    loc = md.AutoDateLocator(minticks=20, maxticks=30, interval_multiples=True)
+    ax.xaxis.set_major_locator(loc)
+
     plt.savefig("test.png")
 
     if show_fig is True:
