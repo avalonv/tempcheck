@@ -1,1 +1,4 @@
 # tempcheck
+
+### Dependencies
+matplotlib, scipy
