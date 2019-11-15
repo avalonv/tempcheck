@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
 from datetime import datetime as dt
-from log_csv import read_rows
+from log_csv import read_csv
 
 
 def draw_line_graph(show_fig=False):
-    rows = read_rows()
+    rows = read_csv()
     timestamps = []
     dates = [] # x
     temps = [] # y

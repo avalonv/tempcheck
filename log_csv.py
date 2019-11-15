@@ -2,7 +2,7 @@ import csv
 
 hist_file = 'history.csv'
 
-def read_rows():
+def read_csv():
     rows = []
     # try opening in read mode. if it fails, create the file
     try:
@@ -21,7 +21,7 @@ def read_rows():
 
 def write_csv(timestamp, date, temp, max_rows=10):
     header = ["timestamp", "date", "temp"]
-    rows = read_rows()
+    rows = read_csv()
     rows.append([timestamp, date, temp])  # append most recent reading
     if len(rows) > max_rows:
         rows.pop(0)  # remove oldest reading
