@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
+from scipy.ndimage.filters import gaussian_filter1d
 from datetime import datetime as dt
 from log_csv import read_csv
 
@@ -16,6 +17,9 @@ def draw_line_graph(show_fig=False):
 
     for ts in timestamps:
         dates.append(dt.fromtimestamp(ts))
+
+    # smoother lines, decreases plot accuracy
+    temps = gaussian_filter1d(temps, sigma=6)
 
     fig, ax = plt.subplots(1,1)
     ax.plot(dates,temps)
