@@ -2,7 +2,7 @@
 # modified from: http://kookye.com/2017/06/01/desgin-a-temperature-detector-through-raspberry-pi-and-ds18b20-temperature-sensor/
 
 from os import system
-from log_csv import write_rows
+from log_csv import write_csv
 import glob
 import time
 import locale
@@ -44,7 +44,7 @@ def log_temperature(temp):
     global last_warn
     time_now = int(time.time())  # unix timestamp
     date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')  # human readable date
-    write_rows(time_now, date_str, temp, 3600) # log last 3 hours
+    write_csv(time_now, date_str, temp, 3600) # log last 3 hours
     if current_temp > max_temp:
         if (last_warn + cooldown) < time_now:
             send_email(temp)

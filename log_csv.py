@@ -19,7 +19,7 @@ def read_rows():
     return rows
 
 
-def write_rows(timestamp, date, temp, max_rows=10):
+def write_csv(timestamp, date, temp, max_rows=10):
     header = ["timestamp", "date", "temp"]
     rows = read_rows()
     rows.append([timestamp, date, temp])  # append most recent reading
