@@ -40,6 +40,8 @@ def draw_line_graph(show_fig=False):
     loc = md.AutoDateLocator(minticks=20, maxticks=30, interval_multiples=True)
     ax.xaxis.set_major_locator(loc)
 
+    # set the figure size to 1920x1080
+    fig.set_size_inches(19.2, 10.8)
     plt.savefig("test.png")
 
     if show_fig is True:
