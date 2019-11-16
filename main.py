@@ -38,7 +38,7 @@ while True:
     temp = read_temp()
     time_now = int(time.time())
     date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')
-    write_csv(time, date_str, temp, history_limit)
+    write_csv(time_now, date_str, temp, history_limit)
     if temp > max_temp:
         high_temps.append(time_now)
         # check if the temperature has remained above the max_temp limit
