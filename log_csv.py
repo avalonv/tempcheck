@@ -19,11 +19,11 @@ def read_csv():
     return rows
 
 
-def write_csv(timestamp, date, temp, max_rows=10):
+def write_csv(timestamp, date, temp, max_rows=None):
     header = ["timestamp", "date", "temp"]
     rows = read_csv()
     rows.append([timestamp, date, temp])  # append most recent reading
-    if len(rows) > max_rows:
+    if max_rows is not None and len(rows) > max_rows:
         rows.pop(0)  # remove oldest reading
     with open('history.csv', 'w', newline='') as csvfile:
         mywriter = csv.writer(csvfile, delimiter=',')
@@ -31,3 +31,10 @@ def write_csv(timestamp, date, temp, max_rows=10):
         for row in rows:
             # print(row)
             mywriter.writerow(row)
+
+
+if __name__ == "__main__":
+    from os import system
+    write_csv("this","is","a test")
+    # remove the last line
+    system(f"lines=$(head -n-1 {hist_file}); echo \"$lines\" > {hist_file}")
