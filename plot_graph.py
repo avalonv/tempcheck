@@ -1,3 +1,7 @@
+import matplotlib
+# force matplotlib to not use any Xwindows backend.
+# see https://stackoverflow.com/a/4706614/8225672 for why
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
 import numpy as np
@@ -11,7 +15,7 @@ temp_label = 'Temperatura °C'
 date_fmt = '%H:%M:%S'
 temp_interval = 2
 
-def draw_line_graph(show_fig=False, plot_gaussian=False):
+def draw_line_graph(plot_gaussian=False):
     rows = read_csv()
     timestamps = []
     dates = [] # x
@@ -44,6 +48,10 @@ def draw_line_graph(show_fig=False, plot_gaussian=False):
     if abs(min(temps) - max(temps)) > 2:
         plt.yticks(np.arange(min(temps), max(temps)+1, temp_interval))
 
+    # increase frequency of date tick interval
+    loc = md.AutoDateLocator(minticks=20, maxticks=30, interval_multiples=True)
+    ax.xaxis.set_major_locator(loc)
+
     # add a grid
     ax.grid()
 
@@ -56,17 +64,12 @@ def draw_line_graph(show_fig=False, plot_gaussian=False):
     plt.subplots_adjust(bottom=0.2)
     plt.xticks(rotation=50)
 
-    # increase frequency of x ticks (dates)
-    loc = md.AutoDateLocator(minticks=20, maxticks=30, interval_multiples=True)
-    ax.xaxis.set_major_locator(loc)
-
     # set the figure size to 1920x1080
     fig.set_size_inches(19.2, 10.8)
     plt.savefig("test.png")
 
-    if show_fig is True:
-        plt.show()
-
 
 if __name__ == "__main__": # if calling directly show graph
-    draw_line_graph(True, False)
+    from os import system
+    draw_line_graph()
+    system('pqiv test.png')
