@@ -4,6 +4,11 @@ from scipy.ndimage.filters import gaussian_filter1d
 from datetime import datetime as dt
 from log_csv import read_csv
 
+title= 'Temperatura'
+date_label = 'Horário'
+temp_label = 'Temperatura °C'
+date_fmt = '%H:%M:%S'
+temp_interval = 2
 
 def draw_line_graph(show_fig=False):
     rows = read_csv()
@@ -18,7 +23,6 @@ def draw_line_graph(show_fig=False):
     for ts in timestamps:
         dates.append(dt.fromtimestamp(ts))
 
-
     fig, ax = plt.subplots(1,1)
     ax.plot(dates,temps, alpha=0.8, linewidth=0.9, label="Binominal")
 
@@ -28,19 +32,16 @@ def draw_line_graph(show_fig=False):
             linestyle='dashed', linewidth=1.5, label="Normal")
 
     # x (date) formatting
-    xfmt = md.DateFormatter('%H:%M:%S')
+    xfmt = md.DateFormatter(date_fmt)
     ax.xaxis.set_major_formatter(xfmt)
 
     # add a grid
     ax.grid()
 
     # set labels
-    plt.xlabel('Horário')
-    plt.ylabel('Temperatura °C')
-    # plt.title('temperatura nas últimas três horas')
-
-    # select the best place to put the legend
-    plt.legend(loc='best')
+    plt.xlabel(date_label)
+    plt.ylabel(temp_label)
+    plt.title(title)
 
     # set how the plot labels are displayed
     plt.subplots_adjust(bottom=0.2)
