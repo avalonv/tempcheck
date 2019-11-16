@@ -39,6 +39,9 @@ def draw_line_graph(show_fig=False):
     plt.ylabel('Temperatura °C')
     # plt.title('temperatura nas últimas três horas')
 
+    # select the best place to put the legend
+    plt.legend(loc='best')
+
     # set how the plot labels are displayed
     plt.subplots_adjust(bottom=0.2)
     plt.xticks(rotation=50)
