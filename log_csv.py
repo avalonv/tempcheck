@@ -15,12 +15,11 @@ def read_csv():
         myreader = csv.reader(csvfile, delimiter=',')
         next(myreader, None)  # skip header
         for row in myreader:
-            # check if there are emty columns
-            for col in row:
-                if col == '':
-                    # skip row if column is empty
-                    # avoids IndexError in plot_grapy.py
-                    continue
+            if [col for col in row if col == ''] or len(row) != 3:
+                # skip row if there's less than 3 cols or col is empty
+                # avoids IndexError in plot_grapy.py
+                print("incomplete row, skipped")
+                continue
             rows.append(row)
     return rows
 
