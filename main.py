@@ -3,6 +3,7 @@
 from os import system
 from read_temperature import read_temp
 from log_csv import write_csv
+from plot_graph import draw_line_graph
 import time
 import locale
 
@@ -45,6 +46,7 @@ while True:
         if high_temps[0] - high_temps[-1] > warn_threshold:
             # check if a warning was already sent recently
             if (last_warn + warn_interval) < time_now:
+                draw_line_graph()
                 send_email(temp)
                 last_warn = time_now
         else:
