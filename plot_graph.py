@@ -18,11 +18,14 @@ def draw_line_graph(show_fig=False):
     for ts in timestamps:
         dates.append(dt.fromtimestamp(ts))
 
-    # smoother lines, decreases plot accuracy
-    temps = gaussian_filter1d(temps, sigma=6)
 
     fig, ax = plt.subplots(1,1)
-    ax.plot(dates,temps)
+    ax.plot(dates,temps, alpha=0.8, linewidth=0.9, label="Binominal")
+
+    # also plot gaussian (normal) distribution
+    temps_smooth = gaussian_filter1d(temps, sigma=30)
+    ax.plot(dates, temps_smooth, color='red',
+            linestyle='dashed', linewidth=1.5, label="Normal")
 
     # x (date) formatting
     xfmt = md.DateFormatter('%H:%M:%S')
