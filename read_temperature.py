@@ -1,6 +1,7 @@
 # modified from: http://kookye.com/2017/06/01/desgin-a-temperature-detector-through-raspberry-pi-and-ds18b20-temperature-sensor/
 
 from os import system
+from re import search
 import glob
 import time
 
@@ -23,14 +24,21 @@ def read_temp_raw():
 
 def read_temp():
     lines = read_temp_raw()
-    # [-3:] = slice starts at the last 3 chracters until the end
-    while lines[0].strip()[-3:] != 'YES':
+    while True:
+        # check 'YES' is at the end of line 1
+        if search('YES', lines[0]) is not None:
+            # check crc. if all the bytes are 00 the device is not connected
+            if search('(00 ){9}', lines[0]) is None:
+                break
+
         time.sleep(0.2)
         lines = read_temp_raw()
-    equals_pos = lines[1].find('t=')
-    if equals_pos != -1:  # if equals_pos is not the last character
-        temp_string = lines[1][equals_pos+2:]  # everything after 't='
-        temp_c = float(temp_string) / 1000.0
+
+    # this pattern matches only the number after t= in
+    # the second line, with or without the negative sign
+    temp_string = search('(?<=t=)(-){0,1}\d+', lines[1])
+    if temp_string:
+        temp_c = float(temp_string.group(0)) / 1000.0
         return temp_c
 
 
