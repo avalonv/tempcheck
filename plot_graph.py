@@ -11,7 +11,7 @@ temp_label = 'Temperatura °C'
 date_fmt = '%H:%M:%S'
 temp_interval = 2
 
-def draw_line_graph(show_fig=False):
+def draw_line_graph(show_fig=False, plot_gaussian=False):
     rows = read_csv()
     timestamps = []
     dates = [] # x
@@ -28,9 +28,13 @@ def draw_line_graph(show_fig=False):
     ax.plot(dates,temps, alpha=0.8, linewidth=0.9, label="Binominal")
 
     # also plot gaussian (normal) distribution
-    temps_smooth = gaussian_filter1d(temps, sigma=30)
-    ax.plot(dates, temps_smooth, color='red',
-            linestyle='dashed', linewidth=1.5, label="Normal")
+    if plot_gaussian is True:
+        temps_smooth = gaussian_filter1d(temps, sigma=30)
+        ax.plot(dates, temps_smooth, color='red',
+                linestyle='dashed', linewidth=1.5, label="Gaussian")
+
+        # put a legend
+        plt.legend(loc='best')
 
     # x (date) formatting
     xfmt = md.DateFormatter(date_fmt)
@@ -65,4 +69,4 @@ def draw_line_graph(show_fig=False):
 
 
 if __name__ == "__main__": # if calling directly show graph
-    draw_line_graph(True)
+    draw_line_graph(True, False)
