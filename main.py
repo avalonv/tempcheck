@@ -6,7 +6,7 @@ from log_csv import write_csv
 import time
 import locale
 
-max_temp = 40
+max_temp = 25
 last_warn = 0
 warn_interval = 600 # 10 minutes
 refresh_time = 3
@@ -33,12 +33,12 @@ def send_email(temp):
     # system(f"echo {body} | s-nail -s '{subject}' '{recipient}'")
 
 
-def log_temperature(temp):
-    global last_warn, high_temps
-    time_now = int(time.time())  # unix timestamp
-    date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')  # human readable date
-    write_csv(time_now, date_str, temp, history_limit)
-    if current_temp > max_temp:
+while True:
+    temp = read_temp()
+    time_now = int(time.time())
+    date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')
+    write_csv(time, date_str, temp, history_limit)
+    if temp > max_temp:
         high_temps.append(time_now)
         # check if the temperature has remained above the max_temp limit
         # for longer than a certain amount of time
@@ -50,9 +50,4 @@ def log_temperature(temp):
         else:
             # reset high temps
             high_temps = []
-
-
-while True:
-    current_temp = read_temp()
-    log_temperature(current_temp)
     time.sleep(refresh_time)
