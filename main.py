@@ -43,13 +43,12 @@ while True:
         high_temps.append(time_now)
         # check if the temperature has remained above the max_temp limit
         # for longer than a certain amount of time
-        if high_temps[0] - high_temps[-1] > warn_threshold:
+        if high_temps[-1] - high_temps[0] > warn_threshold:
             # check if a warning was already sent recently
             if (last_warn + warn_interval) < time_now:
                 draw_line_graph()
                 send_email(temp)
                 last_warn = time_now
-        else:
             # reset high temps
             high_temps = []
     time.sleep(refresh_time)
