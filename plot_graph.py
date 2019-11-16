@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
+import numpy as np
 from scipy.ndimage.filters import gaussian_filter1d
 from datetime import datetime as dt
 from log_csv import read_csv
@@ -34,6 +35,10 @@ def draw_line_graph(show_fig=False):
     # x (date) formatting
     xfmt = md.DateFormatter(date_fmt)
     ax.xaxis.set_major_formatter(xfmt)
+
+    # manually set temp tick interval
+    if abs(min(temps) - max(temps)) > 2:
+        plt.yticks(np.arange(min(temps), max(temps)+1, temp_interval))
 
     # add a grid
     ax.grid()
