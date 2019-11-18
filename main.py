@@ -2,7 +2,7 @@
 
 from os import system
 from read_temperature import read_temp
-from log_csv import write_csv
+from csv_logger import write_csv
 from plot_graph import draw_line_graph
 import time
 import locale

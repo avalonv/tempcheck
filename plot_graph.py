@@ -7,7 +7,7 @@ import matplotlib.dates as md
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter1d
 from datetime import datetime as dt
-from log_csv import read_csv
+from csv_logger import read_csv
 
 title= 'Temperatura'
 date_label = 'Horário'

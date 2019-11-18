@@ -30,7 +30,7 @@ def write_csv(timestamp, date, temp, max_rows=None):
     rows.append([timestamp, date, temp])  # append most recent reading
     if max_rows is not None and len(rows) > max_rows:
         rows.pop(0)  # remove oldest reading
-    with open('history.csv', 'w', newline='') as csvfile:
+    with open(hist_file, 'w', newline='') as csvfile:
         mywriter = csv.writer(csvfile, delimiter=',')
         mywriter.writerow(header)
         for row in rows:
