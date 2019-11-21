@@ -66,7 +66,7 @@ def draw_line_graph(plot_gaussian=False):
 
     # set the figure size to 1920x1080
     fig.set_size_inches(19.2, 10.8)
-    plt.savefig("test.png")
+    plt.savefig("test.png",bbox_inches='tight')
 
 
 if __name__ == "__main__": # if calling directly show graph
