@@ -39,7 +39,10 @@ def read_temp():
     temp_string = search('(?<=t=)(-){0,1}\d+', lines[1])
     if temp_string:
         temp_c = float(temp_string.group(0)) / 1000.0
-        return temp_c
+        # when the sensor is reconnected, it seems to always report 85.0 C
+        # this is a false reading and should be dropped
+        if temp_c != 85.0:
+            return temp_c
 
 
 if __name__ == "__main__": # if calling directly print temperature
