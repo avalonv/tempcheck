@@ -5,6 +5,8 @@ from re import search
 import glob
 import time
 
+last_temp = 0
+
 try:
     system('modprobe w1-gpio')
     system('modprobe w1-therm')
@@ -23,6 +25,7 @@ def read_temp_raw():
 
 
 def read_temp():
+    global last_temp
     lines = read_temp_raw()
     while True:
         # check 'YES' is at the end of line 1
@@ -41,8 +44,10 @@ def read_temp():
         temp_c = float(temp_string.group(0)) / 1000.0
         # when the sensor is reconnected, it seems to always report 85.0 C
         # this is a false reading and should be dropped
-        if temp_c != 85.0:
+        if temp_c != 85.0 or None:
+            last_temp = temp_c
             return temp_c
+        return last_temp
 
 
 if __name__ == "__main__": # if calling directly print temperature
