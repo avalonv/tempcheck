@@ -9,10 +9,12 @@ from scipy.ndimage.filters import gaussian_filter1d
 from datetime import datetime as dt
 from csv_logger import read_csv
 
-title= 'Temperatura'
+title = 'Temperatura'
 date_label = 'Horário'
 temp_label = 'Temperatura °C'
 date_fmt = '%H:%M:%S'
+image_name = 'history_graph.png'
+resolution = [19.2, 10.8] # set the figure size to 1920x1080
 temp_interval = 2
 
 def draw_line_graph(plot_gaussian=False):
@@ -64,9 +66,8 @@ def draw_line_graph(plot_gaussian=False):
     plt.subplots_adjust(bottom=0.2)
     plt.xticks(rotation=50)
 
-    # set the figure size to 1920x1080
-    fig.set_size_inches(19.2, 10.8)
-    plt.savefig("test.png",bbox_inches='tight')
+    fig.set_size_inches(resolution[0], resolution[1])
+    plt.savefig(image_name, bbox_inches='tight')
 
 
 if __name__ == "__main__": # if calling directly show graph
