@@ -46,6 +46,15 @@ def update_graph(update_interval=300):
     update_webpage()
 
 
+def warn(warn_interval=600):
+    global last_warn
+    email_thread = threading.Thread(target=send_email, args=temp)
+    if (last_warn + warn_interval) < time_now:
+        if not email_thread.isAlive():
+            email_thread.start()
+            last_warn = time_now
+
+
 while True:
     temp = read_temp()
     time_now = int(time.time())
@@ -57,11 +66,7 @@ while True:
         # check if the temperature has remained above the max_temp limit
         # for longer than a certain amount of time
         if high_temps[-1] - high_temps[0] > warn_threshold:
-            # check if a warning was already sent recently
-            if (last_warn + warn_interval) < time_now:
-                draw_line_graph()
-                send_email(temp)
-                last_warn = time_now
+            warn()
             # reset high temps
             high_temps = []
     time.sleep(refresh_time)
