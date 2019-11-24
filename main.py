@@ -39,30 +39,29 @@ def send_email(temp):
 def update_graph(update_interval=300):
     global last_update
     graph_thread = threading.Thread(target=plot_graph)
-    if (last_update + update_interval) < time_now:
+    if (last_update + update_interval) < time.time():
         if not graph_thread.isAlive():
             graph_thread.start()
-            last_update = time_now
+            last_update = time.time()
     write_html()
 
 
 def warn(warn_interval=600):
     global last_warn
     email_thread = threading.Thread(target=send_email, args=temp)
-    if (last_warn + warn_interval) < time_now:
+    if (last_warn + warn_interval) < time.time():
         if not email_thread.isAlive():
             email_thread.start()
-            last_warn = time_now
+            last_warn = time.time()
 
 
 while True:
     temp = read_temp()
-    time_now = int(time.time())
     date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')
-    write_csv(time_now, date_str, temp, history_limit)
+    write_csv(int(time.time()), date_str, temp, history_limit)
     update_graph()
     if temp > max_temp:
-        high_temps.append(time_now)
+        high_temps.append(time.time())
         # check if the temperature has remained above the max_temp limit
         # for longer than a certain amount of time
         if high_temps[-1] - high_temps[0] > warn_threshold:
