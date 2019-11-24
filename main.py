@@ -42,8 +42,8 @@ def update_graph(update_interval=300):
     if (last_update + update_interval) < time.time():
         if not graph_thread.isAlive():
             graph_thread.start()
+            write_html()
             last_update = time.time()
-    write_html()
 
 
 def warn(warn_interval=600):

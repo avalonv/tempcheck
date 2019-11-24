@@ -60,7 +60,7 @@ def plot_graph(plot_gaussian=False):
     # set labels
     plt.xlabel(date_label)
     plt.ylabel(temp_label)
-    plt.title(title)
+    plt.title(f'Última medida: {rows[-1][1]}')
 
     # set how the plot labels are displayed
     plt.subplots_adjust(bottom=0.2)
