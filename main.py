@@ -4,8 +4,8 @@ import threading
 from os import system
 from read_temperature import read_temp
 from csv_logger import write_csv
-from plot_graph import draw_line_graph
-from write_html import update_webpage
+from plot_graph import plot_graph
+from write_html import write_html
 import time
 import locale
 
@@ -38,12 +38,12 @@ def send_email(temp):
 
 def update_graph(update_interval=300):
     global last_update
-    graph_thread = threading.Thread(target=draw_line_graph)
+    graph_thread = threading.Thread(target=plot_graph)
     if (last_update + update_interval) < time_now:
         if not graph_thread.isAlive():
             graph_thread.start()
             last_update = time_now
-    update_webpage()
+    write_html()
 
 
 def warn(warn_interval=600):

@@ -17,7 +17,7 @@ image_name = 'history_graph.png'
 resolution = [19.2, 10.8] # set the figure size to 1920x1080
 temp_interval = 2
 
-def draw_line_graph(plot_gaussian=False):
+def plot_graph(plot_gaussian=False):
     rows = read_csv()
     timestamps = []
     dates = [] # x
@@ -72,5 +72,5 @@ def draw_line_graph(plot_gaussian=False):
 
 if __name__ == "__main__": # if calling directly show graph
     from os import system
-    draw_line_graph()
-    system('pqiv test.png')
+    plot_graph(True)
+    system(f"pqiv {image_name}")
