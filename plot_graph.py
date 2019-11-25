@@ -30,14 +30,15 @@ def plot_graph(plot_gaussian=False):
     for ts in timestamps:
         dates.append(dt.fromtimestamp(ts))
 
+    print('creating plot')
     fig, ax = plt.subplots(1,1)
-    ax.plot(dates,temps, alpha=0.8, linewidth=0.9, label="Binominal")
+    ax.plot(dates,temps, linewidth=1.0, label="Binominal")
 
     # also plot gaussian (normal) distribution
     if plot_gaussian is True:
         temps_smooth = gaussian_filter1d(temps, sigma=30)
-        ax.plot(dates, temps_smooth, color='red',
-                linestyle='dashed', linewidth=1.5, label="Gaussian")
+        ax.plot(dates, temps_smooth, color='red', alpha=0.8,
+                linestyle='dashed', linewidth=1.0, label="Gaussian")
 
         # put a legend
         plt.legend(loc='best')
