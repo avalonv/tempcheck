@@ -11,6 +11,7 @@ def read_csv():
             pass
     except (FileNotFoundError):
         with open(hist_file, 'w+'):
+            print(f"{hist_file} does not exist, creating it")
             pass
     with open(hist_file, 'r', newline='') as csvfile:
         myreader = csv.reader(csvfile, delimiter=',')
