@@ -14,7 +14,7 @@ locale_str = 'pt_BR.utf8'
 last_warn = time.time()
 last_update = last_warn
 refresh_time = 3
-history_limit = 3600 # * 3 = keep around 3 hours of history
+history_limit = (None, 180) # no limit on entries, max 3 hours of history
 high_temps = []
 warn_threshold = 60 # send a warning if the temperature stays high for a minute
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     while True:
         temp = read_temp()
         date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')
-        write_csv(int(time.time()), date_str, temp, history_limit)
+        write_csv(int(time.time()), date_str, temp, history_limit[0], history_limit[1])
         update_graph()
         if temp > max_temp:
             high_temps.append(time.time())
