@@ -5,7 +5,7 @@ import locale
 import threading
 from sys import argv
 from os import system
-from read_temperature import read_temp
+from read_temp_ds18b20 import read_temp
 from csv_logger import write_csv
 from plot_graph import plot_graph
 from write_html import write_html
@@ -41,7 +41,7 @@ def send_email(temp):
     # system(f"echo {body} | s-nail -s '{subject}' '{recipient}'")
 
 
-def update_graph(update_interval=300):
+def update_graph(update_interval=120):
     global last_update
     # defining a function that calls both is better than creating
     # two threads since write_html() depends on plot_graph()'s output
