@@ -38,15 +38,15 @@ def send_email(temp):
 
 def update_graph(update_interval=300):
     global last_update
-    # defining this locally is better than creating two threads since
-    # write_html() depends on plot_graph()'s output
+    # defining a function that calls both is better than creating
+    # two threads since write_html() depends on plot_graph()'s output
     def _call_plot_and_html():
         plot_graph()
         write_html()
-    graph_thread = threading.Thread(target=_call_plot_and_html)
+    update_graph_thread = threading.Thread(target=_call_plot_and_html)
     if (last_update + update_interval) < time.time():
-        if not graph_thread.isAlive():
-            graph_thread.start()
+        if not update_graph_thread.isAlive():
+            update_graph_thread.start()
             last_update = time.time()
 
 
