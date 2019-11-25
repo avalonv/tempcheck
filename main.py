@@ -31,7 +31,7 @@ def send_email(temp):
     current_date = time.strftime('%c')
     body = f"\'{temp} is above {max_temp}\n{current_date}\'"
     subject = "Alerta de temperatura"
-    recipient = "avalonvales@protonmail.com"
+    recipient = "test@example.com"
     print(body)
     # system(f"echo {body} | s-nail -s '{subject}' '{recipient}'")
 
