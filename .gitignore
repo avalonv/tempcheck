@@ -1,3 +1,4 @@
 *.csv
 *.png
+*dht11.py
 __pycache__/
