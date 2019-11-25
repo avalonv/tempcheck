@@ -41,9 +41,10 @@ def write_csv(timestamp, date, temp, max_rows=None, max_age=None):
     header = ["timestamp", "date", "temp"]
     rows = read_csv()
     rows.append([timestamp, date, temp])  # append most recent reading
-    if max_rows is not None and len(rows) > max_rows:
+    if max_rows is not None:
         # remove oldest reading
-        rows.pop(0)
+        while len(rows) > max_rows:
+           rows.pop(0)
     if max_age is not None:
         # remove entries older than max_age minutes
         rows = remove_old_rows(rows, max_age)
@@ -58,7 +59,7 @@ def write_csv(timestamp, date, temp, max_rows=None, max_age=None):
 if __name__ == "__main__":
     from os import system
     start = time()
-    write_csv(int(start),"is","a test", None, 10)
+    write_csv(int(start),"is","a test")
     end = time()
     row_count = len(read_csv())
     print(f'wrote {row_count} rows in {end - start} seconds')
