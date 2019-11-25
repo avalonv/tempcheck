@@ -52,10 +52,10 @@ def update_graph(update_interval=300):
 
 def warn(warn_interval=600):
     global last_warn
-    email_thread = threading.Thread(target=send_email, args=temp)
+    warn_thread = threading.Thread(target=send_email, args=temp)
     if (last_warn + warn_interval) < time.time():
-        if not email_thread.isAlive():
-            email_thread.start()
+        if not warn_thread.isAlive():
+            warn_thread.start()
             last_warn = time.time()
 
 
