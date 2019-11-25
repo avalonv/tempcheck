@@ -59,17 +59,18 @@ def warn(warn_interval=600):
             last_warn = time.time()
 
 
-while True:
-    temp = read_temp()
-    date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')
-    write_csv(int(time.time()), date_str, temp, history_limit)
-    update_graph()
-    if temp > max_temp:
-        high_temps.append(time.time())
-        # check if the temperature has remained above the max_temp limit
-        # for longer than a certain amount of time
-        if high_temps[-1] - high_temps[0] > warn_threshold:
-            warn()
-            # reset high temps
-            high_temps = []
-    time.sleep(refresh_time)
+if __name__ == "__main__":
+    while True:
+        temp = read_temp()
+        date_str = time.strftime("%Y-%m-%d %H:%M:%S").strip(' ')
+        write_csv(int(time.time()), date_str, temp, history_limit)
+        update_graph()
+        if temp > max_temp:
+            high_temps.append(time.time())
+            # check if the temperature has remained above the max_temp limit
+            # for longer than a certain amount of time
+            if high_temps[-1] - high_temps[0] > warn_threshold:
+                warn()
+                # reset high temps
+                high_temps = []
+        time.sleep(refresh_time)
