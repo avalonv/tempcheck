@@ -1,23 +1,28 @@
 #!/usr/bin/python3
 
+import time
+import locale
 import threading
+from sys import argv
 from os import system
 from read_temperature import read_temp
 from csv_logger import write_csv
 from plot_graph import plot_graph
 from write_html import write_html
-import time
-import locale
 
 locale_str = 'pt_BR.utf8'
-max_temp = 25
-last_warn = 0
-last_update = 0
+last_warn = time.time()
+last_update = last_warn
 refresh_time = 3
 history_limit = 3600 # * 3 = keep around 3 hours of history
 high_temps = []
 warn_threshold = 60 # send a warning if the temperature stays high for a minute
 
+try:
+    max_temp = int(argv[1])
+except ValueError:
+    print(f"'{argv[1]}': invalid number.")
+    exit(1)
 
 try:
     locale.setlocale(locale.LC_ALL, locale_str)
