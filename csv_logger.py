@@ -2,6 +2,7 @@ import csv
 
 hist_file = 'history.csv'
 
+
 def read_csv():
     rows = []
     # try opening in read mode. if it fails, create the file
@@ -40,6 +41,11 @@ def write_csv(timestamp, date, temp, max_rows=None):
 
 if __name__ == "__main__":
     from os import system
+    import time
+    start = time.time()
     write_csv("this","is","a test")
+    end = time.time()
+    row_count = len(read_csv())
+    print(f'wrote {row_count} rows in {end - start} seconds')
     # remove the last line
     system(f"lines=$(head -n-1 {hist_file}); echo \"$lines\" > {hist_file}")

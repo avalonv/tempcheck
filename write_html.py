@@ -17,6 +17,10 @@ def write_html():
 
 
 if __name__ == "__main__":
-    write_html()
     import webbrowser
+    import time
+    start = time.time()
+    write_html()
+    end = time.time()
+    print(f'wrote html in {end - start} seconds')
     webbrowser.open(html_path)

@@ -77,5 +77,9 @@ def plot_graph(plot_gaussian=False):
 
 if __name__ == "__main__": # if calling directly show graph
     from os import system
+    import time
+    start = time.time()
     plot_graph(True)
-    system(f"pqiv {image_name}")
+    end = time.time()
+    print(f'drew graph in {end - start} seconds')
+    system(f"which pqiv && pqiv {image_name}")
