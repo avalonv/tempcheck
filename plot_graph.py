@@ -70,6 +70,10 @@ def plot_graph(plot_gaussian=False):
     fig.set_size_inches(resolution[0], resolution[1])
     plt.savefig(image_name, bbox_inches='tight')
 
+    # close figures
+    # without this the program will run out of memory in a few hours
+    plt.close('all')
+
 
 if __name__ == "__main__": # if calling directly show graph
     from os import system
