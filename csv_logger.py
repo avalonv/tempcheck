@@ -4,7 +4,7 @@ from time import time
 hist_file = 'history.csv'
 
 
-def read_csv():
+def read_csv_file():
     rows = []
     # try opening in read mode. if it fails, create the file
     try:
@@ -39,7 +39,7 @@ def remove_old_rows(rows, max_age):
 
 def write_csv(timestamp, date, temp, max_rows=None, max_age=None):
     header = ["timestamp", "date", "temp"]
-    rows = read_csv()
+    rows = read_csv_file()
     rows.append([timestamp, date, temp])  # append most recent reading
     if max_rows is not None:
         # remove oldest reading
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     start = time()
     write_csv(int(start),"is","a test")
     end = time()
-    row_count = len(read_csv())
+    row_count = len(read_csv_file())
     print(f'wrote {row_count} rows in {end - start} seconds')
     # remove the last line
     system(f"lines=$(head -n-1 {hist_file}); echo \"$lines\" > {hist_file}")

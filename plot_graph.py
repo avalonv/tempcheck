@@ -7,7 +7,7 @@ import matplotlib.dates as md
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter1d
 from datetime import datetime as dt
-from csv_logger import read_csv
+from csv_logger import read_csv_file
 
 title = 'Temperatura'
 date_label = 'Horário'
@@ -18,7 +18,7 @@ resolution = [19.2, 10.8] # set the figure size to 1920x1080
 temp_interval = 2
 
 def plot_graph(plot_gaussian=False):
-    rows = read_csv()
+    rows = read_csv_file()
     timestamps = []
     dates = [] # x
     temps = [] # y
