@@ -49,7 +49,7 @@ def plot_graph(plot_gaussian=False):
 
     # manually set temp tick interval
     if abs(min(temps) - max(temps)) > 2:
-        plt.yticks(np.arange(min(temps), max(temps)+1, temp_interval))
+        plt.yticks(np.arange(int(min(temps)), int(max(temps)), 1))
 
     # increase frequency of date tick interval
     loc = md.AutoDateLocator(minticks=20, maxticks=30, interval_multiples=True)
