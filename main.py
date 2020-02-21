@@ -20,10 +20,10 @@ warn_threshold = 60  # send a warning if the temperature stays high for a minute
 try:
     max_temp = int(argv[1])
 except IndexError:
-    print("temperature argument missing.")
+    print("main.py: temperature argument missing.")
     exit(1)
 except ValueError:
-    print(f"'{argv[1]}': invalid number.")
+    print(f"main.py: '{argv[1]}': invalid number.")
     exit(1)
 
 try:

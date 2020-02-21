@@ -14,8 +14,8 @@ try:
     device_folder = glob.glob(base_dir + '28*')[0]  # wildcard match
     device_file = device_folder + '/w1_slave'
 except (IndexError):
-    print("Couldn't locate device to read from")
-    exit(1)
+    print("read_temp_ds18b20.py: couldn't locate device to read from")
+    exit(2)
 
 
 def read_temp_raw():
