@@ -13,7 +13,7 @@ title = 'Temperatura'
 date_label = 'Horário'
 temp_label = 'Temperatura °C'
 date_fmt = '%H:%M:%S'
-image_name = 'history_graph.png'
+image_name = '/var/www/html/images/history_graph.png'
 resolution = [19.2, 10.8] # set the figure size to 1920x1080
 temp_interval = 2
 
