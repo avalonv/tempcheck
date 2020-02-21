@@ -4,7 +4,6 @@ import time
 import locale
 import threading
 from sys import argv
-from os import system
 from read_temp_ds18b20 import read_temp
 from csv_logger import write_csv
 from plot_graph import plot_graph
@@ -40,7 +39,6 @@ def send_email(temp):
     subject = "Alerta de temperatura"
     recipient = "test@example.com"
     print(body)
-    # system(f"echo {body} | s-nail -s '{subject}' '{recipient}'")
 
 
 def update_graph(update_interval=60):
