@@ -41,14 +41,9 @@ def send_email(temp):
     # system(f"echo {body} | s-nail -s '{subject}' '{recipient}'")
 
 
-def update_graph(update_interval=120):
+def update_graph(update_interval=60):
     global last_update
-    # defining a function that calls both is better than creating
-    # two threads since write_html() depends on plot_graph()'s output
-    def _call_plot_and_html():
-        plot_graph()
-        write_html()
-    update_graph_thread = threading.Thread(target=_call_plot_and_html)
+    update_graph_thread = threading.Thread(target=plot_graph)
     if (last_update + update_interval) < time.time():
         if not update_graph_thread.isAlive():
             update_graph_thread.start()
