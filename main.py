@@ -8,18 +8,20 @@ from os import system
 from read_temp_ds18b20 import read_temp
 from csv_logger import write_csv
 from plot_graph import plot_graph
-from write_html import write_html
 
 locale_str = 'pt_BR.utf8'
 last_warn = time.time()
 last_update = last_warn
 refresh_time = 3
-history_limit = (None, 180) # no limit on entries, max 3 hours of history
+history_limit = (None, 720)  # no limit on entries, max 12 hours of history
 high_temps = []
-warn_threshold = 60 # send a warning if the temperature stays high for a minute
+warn_threshold = 60  # send a warning if the temperature stays high for a minute
 
 try:
     max_temp = int(argv[1])
+except IndexError:
+    print("temperature argument missing.")
+    exit(1)
 except ValueError:
     print(f"'{argv[1]}': invalid number.")
     exit(1)
