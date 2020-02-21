@@ -68,7 +68,12 @@ def plot_graph(plot_gaussian=False):
     plt.xticks(rotation=50)
 
     fig.set_size_inches(resolution[0], resolution[1])
-    plt.savefig(image_name, bbox_inches='tight')
+    try:
+        plt.savefig(image_name, bbox_inches='tight')
+    except:
+        print("plot_graph.py: could't save file. check if directory exists/permissions")
+        exit(2)
+
 
     # close figures
     # without this the program will run out of memory in a few hours
