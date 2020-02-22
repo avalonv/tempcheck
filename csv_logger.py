@@ -27,13 +27,29 @@ def read_csv_file():
     return rows
 
 
+def remove_excess_rows(rows, max_rows):
+    len1 = len(rows)
+    while len(rows) > max_rows:
+        rows.pop(0)
+    len2 = len(rows)
+    diff = len1 - len2
+    if diff:
+        print(f"csv_logger.py: removed {diff} excess rows")
+    return rows
+
+
 def remove_old_rows(rows, max_age):
+    len1 = len(rows)
     max_age = max_age * 60
     current_time = int(time())
     clean_rows = []
     for row in rows:
         if int(row[0]) + max_age > current_time:
             clean_rows.append(row)
+    len2 = len(clean_rows)
+    diff = len1 - len2
+    if diff:
+        print(f"csv_logger.py: removed {diff} old rows")
     return clean_rows
 
 
@@ -43,8 +59,7 @@ def write_csv(timestamp, date, temp, max_rows=None, max_age=None):
     rows.append([timestamp, date, temp])  # append most recent reading
     if max_rows is not None:
         # remove oldest reading
-        while len(rows) > max_rows:
-            rows.pop(0)
+        rows = remove_excess_rows(rows, max_rows)
     if max_age is not None:
         # remove entries older than max_age minutes
         rows = remove_old_rows(rows, max_age)
