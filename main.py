@@ -28,7 +28,7 @@ except ValueError:
 try:
     locale.setlocale(locale.LC_ALL, locale_str)
 except (locale.Error):
-    print('unsupported locale')
+    print("main.py: unsupported locale")
     print(f"run `sudo dpkg-reconfigure locales` to configure {locale_str} locale")
     exit(1)
 

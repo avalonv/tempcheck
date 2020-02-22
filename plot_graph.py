@@ -30,7 +30,7 @@ def plot_graph(plot_gaussian=False):
     for ts in timestamps:
         dates.append(dt.fromtimestamp(ts))
 
-    print('creating plot')
+    print("plot_graph.py: creating plot")
     fig, ax = plt.subplots(1,1)
     ax.plot(dates,temps, linewidth=1.0, label="Binominal")
 
